@@ -1,17 +1,25 @@
-import React from 'react';
+import React from "react";
 
-export default function MovieList(props) {
+import Movie from "./Movie";
+import { Link } from "react-router-dom";
+const MovieList = (props) => {
+  //console.log("props in MovieList component: ", props)
   return (
     <div className="movie-list">
-      {props.movies.map(movie => (
-        <MovieDetails key={movie.id} movie={movie} />
-      ))}
+      {props.movies.map((movie) => {
+        return (
+          <Link key={movie.id} to={`/movies/${movie.id}`}>
+            <MovieDetails key={movie.id} movie={movie} />
+          </Link>
+        );
+      })}
+      <Movie movie={MovieList} />
     </div>
   );
-}
+};
 
-function MovieDetails(props) {
-  const { title, director, metascore } = props.movie;
+function MovieDetails({ movie }) {
+  const { title, director, metascore } = movie;
 
   return (
     <div className="movie-card">
@@ -25,3 +33,4 @@ function MovieDetails(props) {
     </div>
   );
 }
+export default MovieList;
